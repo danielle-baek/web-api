@@ -16,9 +16,9 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const id = Number(req.params.id)
-  db.getUser(id)
-    .then(user => {
-      res.json({user: user})
+  db.getActivity(id)
+    .then(activity => {
+      res.json({activity: activity})
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
@@ -26,10 +26,10 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
-  const newUser = req.body
-  db.addUser(newUser)
-    .then(user => {
-      res.json({user: user})
+  const newActivity = req.body
+  db.addActivity(newActivity)
+    .then(activity => {
+      res.json({activity: activity})
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
@@ -38,10 +38,21 @@ router.post('/create', (req, res) => {
 
 router.post('/:id/update', (req, res) => {
   const id = Number(req.params.id)
-  const user = req.body
-  db.updateUser(id, user)
-    .then(user => {
-      res.json({user: user})
+  const activity = req.body
+  db.updateActivity(id, activity)
+    .then(activity => {
+      res.json({activity: activity})
+    })
+    .catch(err => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
+router.post('/:id/delete', (req, res) => {
+  const id = Number(req.params.id)
+  db.deleteActivity(id)
+    .then(activity => {
+      res.json({activity: activity})
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
