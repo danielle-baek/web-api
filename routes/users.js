@@ -36,4 +36,16 @@ router.post('/create', (req, res) => {
     })
 })
 
+router.post('/:id/update', (req, res) => {
+  const id = Number(req.params.id)
+  const user = req.body
+  db.updateUser(id, user)
+    .then(user => {
+      res.json({user: user})
+    })
+    .catch(err => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
 module.exports = router
