@@ -6,7 +6,12 @@ module.exports = {
   getUsers,
   getUser,
   addUser,
-  updateUser
+  updateUser,
+  getActivities,
+  getActivity,
+  addActivity,
+  updateActivity,
+  deleteActivity
 }
 
 function getUsers (db = connection) {
@@ -23,4 +28,24 @@ function addUser (user, db = connection) {
 
 function updateUser (id, user, db = connection) {
   return db('users').where('id', id).update(user).select()
+}
+
+function getActivities (db = connection) {
+  return db('activities').select()
+}
+
+function getActivity (id, db = connection) {
+  return db('activities').where('id', id).first()
+}
+
+function addActivity (activities, db = connection) {
+  return db('activities').insert(activities).select()
+}
+
+function updateActivity (id, activities, db = connection) {
+  return db('activities').where('id', id).update(activities).select()
+}
+
+function deleteActivity (id, db = connection) {
+  return db('activities').where('id', id).delete()
 }
